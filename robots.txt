@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /private/
+Disallow: /temporary/
+Disallow: /test/
+
+Sitemap: https://somaticjourney.link/sitemap.xml
