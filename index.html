@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Somatic Journey Resources</title>
-  <link rel="icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true" type="image/png"> 
+  <link rel="icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true" type="image/png">
   <link rel="apple-touch-icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
   <meta name="description" content="A collection of exercises and resources to help release chronic tension and improve natural movement.">
   <meta name="keywords" content="somatic exercises, movement resources, chronic tension, body awareness, relaxation">
@@ -13,7 +13,7 @@
   <meta property="og:title" content="Somatic Journey Resources">
   <meta property="og:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
   <meta property="og:image" content="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
-  <meta property="og:url" content="https://yourwebsite.com">
+  <meta property="og:url" content="https://somaticjourney.link">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Somatic Journey Resources">
   <meta name="twitter:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
@@ -55,27 +55,30 @@
       border: none;
       border-radius: 8px;
       margin-bottom: 1rem;
+      loading: lazy;
     }
   </style>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJK2WEK0V7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
     gtag('config', 'G-QJK2WEK0V7');
   </script>
   <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('https://somaticjourney.link/sw.js').then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      }).catch((error) => {
-        console.error('Service Worker registration failed:', error);
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then((registration) => {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+          console.error('Service Worker registration failed:', error);
+        });
       });
-    });
-  }
-</script>
-
+    }
+  </script>
 </head>
 
 <body class="bg-gray-900 text-gray-200 font-sans leading-relaxed">
@@ -83,20 +86,19 @@
     <h1 class="text-2xl font-bold" id="main-title"></h1>
     <p class="text-lg text-gray-300 mt-2" id="main-description"></p>
   </header>
-  
+
   <main class="px-4 md:px-12" id="main-content"></main>
 
   <footer class="glass-effect text-center py-4 mt-8">
     <p class="text-sm text-gray-400">© 2024 All rights reserved.</p>
   </footer>
-  
+
   <script>
     fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
       .then(response => response.json())
       .then(data => {
         document.getElementById('main-title').innerText = 'Somatic Journey Resources';
         document.getElementById('main-description').innerText = 'A collection of exercises and resources to help release chronic tension and improve natural movement.';
-
         data.cards.forEach(section => {
           const sectionElement = document.createElement('section');
           sectionElement.className = 'glass-effect mt-6 py-6 px-6 md:px-8 rounded-xl';
@@ -104,37 +106,30 @@
           sectionTitle.className = 'text-lg md:text-xl font-bold mb-4';
           sectionTitle.innerHTML = `${section.emoji} ${section.title}`;
           sectionElement.appendChild(sectionTitle);
-
           const gridElement = document.createElement('div');
           gridElement.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
-          
           section.childcards.forEach(card => {
             const cardElement = document.createElement('div');
             cardElement.className = 'mini-card';
             const cardTitle = document.createElement('h3');
             cardTitle.innerHTML = `${card.emoji} ${card.title}`;
             cardElement.appendChild(cardTitle);
-
             const mainVideo = document.createElement('iframe');
             mainVideo.src = card.videos.main_video;
             mainVideo.allowFullscreen = true;
             cardElement.appendChild(mainVideo);
-
             if (card.videos.alt_video) {
               const altHeader = document.createElement('h4');
               altHeader.innerText = 'Alt.';
               cardElement.appendChild(altHeader);
-              
               const altVideo = document.createElement('iframe');
               altVideo.src = card.videos.alt_video;
               altVideo.allowFullscreen = true;
               cardElement.appendChild(altVideo);
             }
-
             const bodyParagraph = document.createElement('p');
             bodyParagraph.innerHTML = card.body.replace(/\n/g, '<br>');
             cardElement.appendChild(bodyParagraph);
-
             gridElement.appendChild(cardElement);
           });
           sectionElement.appendChild(gridElement);
