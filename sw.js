@@ -1,10 +1,10 @@
 const CACHE_NAME = 'somatic-journey-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html', // your main HTML file
-  'https://cdn.tailwindcss.com',
-  'https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true',
-  'https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json',
+  'https://somaticjourney.link/', // Home page
+  'https://somaticjourney.link/index.html', // Main HTML file
+  'https://cdn.tailwindcss.com', // External CSS
+  'https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true', // Favicon
+  'https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json', // JSON data
 ];
 
 self.addEventListener('install', (event) => {
