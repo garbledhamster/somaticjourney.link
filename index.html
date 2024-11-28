@@ -4,20 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Greenlight Somatic Exercises</title>
-  <link rel="icon" href="path_to_your_favicon.ico" type="image/x-icon"> 
-  <link rel="apple-touch-icon" href="path_to_your_favicon.png">
-  <meta name="description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with Hanna Somatic Exercises. Explore foundational and pelvic floor exercises for improved mobility and relaxation.">
-  <meta name="keywords" content="Hanna Somatic Exercises, chronic tension release, mobility exercises, pelvic floor awareness">
+  <title>Somatic Journey Resources</title>
+  <link rel="icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true" type="image/png"> 
+  <link rel="apple-touch-icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
+  <meta name="description" content="A collection of exercises and resources to help release chronic tension and improve natural movement.">
+  <meta name="keywords" content="somatic exercises, movement resources, chronic tension, body awareness, relaxation">
   <meta name="author" content="Joseph Rice">
-  <meta property="og:title" content="Hanna Somatic Exercises">
-  <meta property="og:description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with our exercises.">
-  <meta property="og:image" content="path_to_your_image.png">
+  <meta property="og:title" content="Somatic Journey Resources">
+  <meta property="og:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
+  <meta property="og:image" content="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
   <meta property="og:url" content="https://yourwebsite.com">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Hanna Somatic Exercises">
-  <meta name="twitter:description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with our exercises.">
-  <meta name="twitter:image" content="path_to_your_image.png">
+  <meta name="twitter:title" content="Somatic Journey Resources">
+  <meta name="twitter:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
+  <meta name="twitter:image" content="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .glass-effect {
@@ -75,15 +75,15 @@
   <main class="px-4 md:px-12" id="main-content"></main>
 
   <footer class="glass-effect text-center py-4 mt-8">
-    <p class="text-sm text-gray-400">© 2024 Greenlight Somatics. All rights reserved.</p>
+    <p class="text-sm text-gray-400">© 2024 All rights reserved.</p>
   </footer>
   
   <script>
     fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
       .then(response => response.json())
       .then(data => {
-        document.getElementById('main-title').innerText = data.title;
-        document.getElementById('main-description').innerText = data.page_description;
+        document.getElementById('main-title').innerText = 'Somatic Journey Resources';
+        document.getElementById('main-description').innerText = 'A collection of exercises and resources to help release chronic tension and improve natural movement.';
 
         data.cards.forEach(section => {
           const sectionElement = document.createElement('section');
