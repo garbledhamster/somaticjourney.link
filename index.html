@@ -5,6 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Greenlight Somatic Exercises</title>
+  <link rel="icon" href="path_to_your_favicon.ico" type="image/x-icon"> 
+  <link rel="apple-touch-icon" href="path_to_your_favicon.png">
+  <meta name="description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with Hanna Somatic Exercises. Explore foundational and pelvic floor exercises for improved mobility and relaxation.">
+  <meta name="keywords" content="Hanna Somatic Exercises, chronic tension release, mobility exercises, pelvic floor awareness">
+  <meta name="author" content="Joseph Rice">
+  <meta property="og:title" content="Hanna Somatic Exercises">
+  <meta property="og:description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with our exercises.">
+  <meta property="og:image" content="path_to_your_image.png">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hanna Somatic Exercises">
+  <meta name="twitter:description" content="Release Chronic Tension and Reclaim Your Natural Movement 🌱 with our exercises.">
+  <meta name="twitter:image" content="path_to_your_image.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .glass-effect {
@@ -44,6 +57,13 @@
       margin-bottom: 1rem;
     }
   </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJK2WEK0V7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QJK2WEK0V7');
+  </script>
 </head>
 
 <body class="bg-gray-900 text-gray-200 font-sans leading-relaxed">
@@ -51,19 +71,20 @@
     <h1 class="text-2xl font-bold" id="main-title"></h1>
     <p class="text-lg text-gray-300 mt-2" id="main-description"></p>
   </header>
-
+  
   <main class="px-4 md:px-12" id="main-content"></main>
 
   <footer class="glass-effect text-center py-4 mt-8">
     <p class="text-sm text-gray-400">© 2024 Greenlight Somatics. All rights reserved.</p>
   </footer>
-
+  
   <script>
     fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
       .then(response => response.json())
       .then(data => {
         document.getElementById('main-title').innerText = data.title;
         document.getElementById('main-description').innerText = data.page_description;
+
         data.cards.forEach(section => {
           const sectionElement = document.createElement('section');
           sectionElement.className = 'glass-effect mt-6 py-6 px-6 md:px-8 rounded-xl';
@@ -71,30 +92,37 @@
           sectionTitle.className = 'text-lg md:text-xl font-bold mb-4';
           sectionTitle.innerHTML = `${section.emoji} ${section.title}`;
           sectionElement.appendChild(sectionTitle);
+
           const gridElement = document.createElement('div');
           gridElement.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+          
           section.childcards.forEach(card => {
             const cardElement = document.createElement('div');
             cardElement.className = 'mini-card';
             const cardTitle = document.createElement('h3');
             cardTitle.innerHTML = `${card.emoji} ${card.title}`;
             cardElement.appendChild(cardTitle);
+
             const mainVideo = document.createElement('iframe');
             mainVideo.src = card.videos.main_video;
             mainVideo.allowFullscreen = true;
             cardElement.appendChild(mainVideo);
+
             if (card.videos.alt_video) {
               const altHeader = document.createElement('h4');
               altHeader.innerText = 'Alt.';
               cardElement.appendChild(altHeader);
+              
               const altVideo = document.createElement('iframe');
               altVideo.src = card.videos.alt_video;
               altVideo.allowFullscreen = true;
               cardElement.appendChild(altVideo);
             }
+
             const bodyParagraph = document.createElement('p');
             bodyParagraph.innerHTML = card.body.replace(/\n/g, '<br>');
             cardElement.appendChild(bodyParagraph);
+
             gridElement.appendChild(cardElement);
           });
           sectionElement.appendChild(gridElement);
