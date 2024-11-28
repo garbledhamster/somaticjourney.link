@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,150 +16,92 @@
       padding: 1.5rem;
     }
 
-    .glass-card {
-      backdrop-filter: blur(6px);
+    .mini-card {
       background: rgba(0, 0, 0, 0.25);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 16px;
       border-radius: 8px;
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding: 12px;
+      margin-bottom: 1rem;
     }
 
-    .glass-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    .header-title {
-      font-size: 2rem;
-      font-weight: bold;
-      color: #e2e8f0;
-      text-align: center;
-    }
-
-    .header-subtitle {
+    .mini-card h3 {
+      display: block;
+      width: 100%;
       font-size: 1.2rem;
-      font-weight: 300;
-      color: #a0aec0;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
       text-align: center;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 0.5rem;
+      border-radius: 6px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 
 <body class="bg-gray-900 text-gray-200 font-sans leading-relaxed">
-  <header class="p-8">
-    <h1 class="header-title">Hanna Somatic Exercises</h1>
-    <p class="header-subtitle">Release Chronic Tension and Reclaim Your Natural Movement</p>
+  <header class="glass-effect text-center p-6 mb-6">
+    <h1 class="text-2xl font-bold" id="main-title"></h1>
+    <p class="text-lg text-gray-300 mt-2" id="main-description"></p>
   </header>
-  <section class="glass-effect mx-8 my-4 p-6">
-    <h2 class="text-2xl font-semibold mb-4">🌱 Introduction</h2>
-    <p>Hanna Somatic Exercises are gentle, mindful movements designed to release chronic muscle tension, restore natural movement, and improve neuromuscular control. These exercises focus on resetting habitual patterns caused by stress, injury, or overuse, allowing you to reconnect with your body’s natural ease of movement.</p>
-    <p>Below, you’ll find the foundational exercises developed by Thomas Hanna. Each one is carefully designed to address specific reflex patterns and improve overall balance, mobility, and awareness.</p>
-  </section>
-  <section class="glass-effect mx-8 my-4 p-6">
-    <h2 class="text-2xl font-semibold mb-4">🧘 Foundational Exercises</h2>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Arch & Flatten</h3>
-      <p><strong>Purpose:</strong> Release tension in the lower back and improve spinal mobility.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Lie on your back with knees bent and feet flat on the floor.</li>
-        <li>As you inhale, tilt your pelvis forward, arching your lower back.</li>
-        <li>As you exhale, tilt your pelvis backward, pressing your back into the floor.</li>
-        <li>Repeat for 6–10 slow, mindful repetitions.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Back Lift</h3>
-      <p><strong>Purpose:</strong> Release tension in the upper back and shoulders.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Lie on your stomach with your forehead resting on your hands.</li>
-        <li>Inhale as you lift your head and chest off the floor slightly.</li>
-        <li>Exhale as you lower back down, relaxing completely.</li>
-        <li>Repeat for 5–7 repetitions, moving slowly and with control.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Diagonal Arch & Curl</h3>
-      <p><strong>Purpose:</strong> Release diagonal tension and improve coordination.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Lie on your back with legs extended and arms relaxed.</li>
-        <li>Inhale as you stretch your right arm overhead and slide your left foot downward.</li>
-        <li>Exhale as you curl your right elbow toward your left knee.</li>
-        <li>Repeat 4–6 times on each side.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Side Bend</h3>
-      <p><strong>Purpose:</strong> Release tension in the sides of the torso and improve lateral flexibility.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Lie on your right side with knees bent and head resting on your right arm.</li>
-        <li>Inhale as you lift your left shoulder toward your left hip.</li>
-        <li>Exhale as you return to the starting position.</li>
-        <li>Repeat 5–7 times on each side.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Washrag</h3>
-      <p><strong>Purpose:</strong> Release rotational tension in the spine.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Lie on your back with knees bent and arms out to the sides.</li>
-        <li>Inhale as you drop both knees to the right and turn your head to the left.</li>
-        <li>Exhale as you return to center, then switch sides.</li>
-        <li>Repeat 4–6 times on each side.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Seated Twist</h3>
-      <p><strong>Purpose:</strong> Release spinal tension and improve rotational flexibility.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Sit on a chair with feet flat on the floor.</li>
-        <li>Inhale as you rotate your torso to the right, placing your left hand on your right knee.</li>
-        <li>Exhale as you return to the starting position.</li>
-        <li>Repeat 4–5 times on each side.</li>
-      </ol>
-    </div>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Hip Hike</h3>
-      <p><strong>Purpose:</strong> Release tension in the hips and improve pelvic mobility.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>Stand with feet hip-width apart.</li>
-        <li>Inhale as you lift your right hip toward your right shoulder.</li>
-        <li>Exhale as you return to neutral, then switch sides.</li>
-        <li>Repeat 5–7 times on each side.</li>
-      </ol>
-    </div>
-  </section>
-  <section class="glass-effect mx-8 my-4 p-6">
-    <h2 class="text-2xl font-semibold mb-4">🩺 Pelvic Floor Exercises</h2>
-    <div class="glass-card my-4">
-      <h3 class="text-xl font-semibold">Pelvic Floor Awareness and Strengthening</h3>
-      <p><strong>Purpose:</strong> Enhance awareness and strength of the pelvic floor muscles to improve bladder control and address urethral issues.</p>
-      <ol class="list-decimal pl-5 text-left">
-        <li>
-          <strong>Identifying Pelvic Floor Muscles:</strong>
-          <ul class="list-disc pl-5">
-            <li>Sit or lie down in a comfortable position.</li>
-            <li>Attempt to stop the flow of urine mid-stream (note: do this only to identify the muscles, not as a regular exercise).</li>
-            <li>The muscles engaged are your pelvic floor muscles.</li>
-          </ul>
-        </li>
-        <li>
-          <strong>Basic Pelvic Floor Contraction (Kegel Exercise):</strong>
-          <ul class="list-disc pl-5">
-            <li>Once you've identified the muscles, contract them by pulling inward and upward.</li>
-            <li>Hold the contraction for 3–5 seconds while breathing normally.</li>
-            <li>Release and relax for an equal amount of time.</li>
-            <li>Repeat 10 times per session, aiming for 3 sessions build functional strength.</li>
-          </ul>
-        </li>
-      </ol>
-      <p><strong>Note:</strong> Consistency is key. Over time, these exercises can lead to significant improvements in muscle control and reduction of incontinence symptoms.</p>
-    </div>
-  </section>
-  <footer class="p-8 text-center">
-    <p>&copy; 2024 Greenlight Somatic Journey. All Rights Reserved.</p>
+
+  <main class="px-4 md:px-12" id="main-content"></main>
+
+  <footer class="glass-effect text-center py-4 mt-8">
+    <p class="text-sm text-gray-400">© 2024 Greenlight Somatics. All rights reserved.</p>
   </footer>
+
+  <script>
+    fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('main-title').innerText = data.title;
+        document.getElementById('main-description').innerText = data.page_description;
+        data.cards.forEach(section => {
+          const sectionElement = document.createElement('section');
+          sectionElement.className = 'glass-effect mt-6 py-6 px-6 md:px-8 rounded-xl';
+          const sectionTitle = document.createElement('h2');
+          sectionTitle.className = 'text-lg md:text-xl font-bold mb-4';
+          sectionTitle.innerHTML = `${section.emoji} ${section.title}`;
+          sectionElement.appendChild(sectionTitle);
+          const gridElement = document.createElement('div');
+          gridElement.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+          section.childcards.forEach(card => {
+            const cardElement = document.createElement('div');
+            cardElement.className = 'mini-card';
+            const cardTitle = document.createElement('h3');
+            cardTitle.innerHTML = `${card.emoji} ${card.title}`;
+            cardElement.appendChild(cardTitle);
+            const mainVideo = document.createElement('iframe');
+            mainVideo.src = card.videos.main_video;
+            mainVideo.allowFullscreen = true;
+            cardElement.appendChild(mainVideo);
+            if (card.videos.alt_video) {
+              const altHeader = document.createElement('h4');
+              altHeader.innerText = 'Alt.';
+              cardElement.appendChild(altHeader);
+              const altVideo = document.createElement('iframe');
+              altVideo.src = card.videos.alt_video;
+              altVideo.allowFullscreen = true;
+              cardElement.appendChild(altVideo);
+            }
+            const bodyParagraph = document.createElement('p');
+            bodyParagraph.innerHTML = card.body.replace(/\n/g, '<br>');
+            cardElement.appendChild(bodyParagraph);
+            gridElement.appendChild(cardElement);
+          });
+          sectionElement.appendChild(gridElement);
+          document.getElementById('main-content').appendChild(sectionElement);
+        });
+      });
+  </script>
 </body>
 
 </html>
