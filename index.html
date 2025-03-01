@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Somatic Journey Resources</title>
-  <link rel="icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true" type="image/png">
-  <link rel="apple-touch-icon" href="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
-  <meta name="description" content="A collection of exercises and resources to help release chronic tension and improve natural movement.">
-  <meta name="keywords" content="somatic exercises, movement resources, chronic tension, body awareness, relaxation">
-  <meta name="author" content="Joseph Rice">
-  <meta property="og:title" content="Somatic Journey Resources">
-  <meta property="og:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
-  <meta property="og:image" content="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
-  <meta property="og:url" content="https://somaticjourney.link">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Somatic Journey Resources">
-  <meta name="twitter:description" content="Explore a collection of exercises and resources that assist in releasing chronic tension and enhancing mobility.">
-  <meta name="twitter:image" content="https://github.com/garbledhamster/somaticjourney.link/blob/main/images/favicon.png?raw=true">
+  <meta name="description" content="Quick access guide to curated somatic stretching videos featuring the cat stretch. All exercises are in one place for free."/>
+  <meta name="keywords" content="somatic stretching, cat stretch, quick guide, curated videos, free exercises"/>
+  <meta name="author" content="Joseph Rice"/>
+  <meta property="og:title" content="Somatic Journey Resources"/>
+  <meta property="og:description" content="Quick access guide to curated somatic stretching videos featuring the cat stretch. All exercises are in one place for free."/>
+  <meta property="og:image" content="images/favicon.png"/>
+  <meta property="og:url" content="https://somaticjourney.link"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Somatic Journey Resources"/>
+  <meta name="twitter:description" content="Quick access guide to curated somatic stretching videos featuring the cat stretch. All exercises are in one place for free."/>
+  <meta name="twitter:image" content="images/favicon.png"/>
+
+  <!-- Favicons / Manifest -->
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="512x512" href="images/android-chrome-512x512.png"/>
+  <link rel="manifest" href="images/site.webmanifest"/>
+  <link rel="shortcut icon" href="images/favicon.ico"/>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  
+  <!-- Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
+
   <style>
     .glass-effect {
       backdrop-filter: blur(6px);
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
       padding: 1.5rem;
     }
-
     .mini-card {
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(255,255,255,0.15);
       border-radius: 8px;
       padding: 12px;
       margin-bottom: 1rem;
     }
-
     .mini-card h3 {
       display: block;
       width: 100%;
@@ -44,99 +56,540 @@
       font-weight: bold;
       margin-bottom: 0.5rem;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0,0,0,0.3);
       padding: 0.5rem;
       border-radius: 6px;
     }
-
-    iframe {
+    input[readonly] {
+      cursor: pointer;
+      caret-color: transparent;
+    }
+    .iframe-container {
+      position: relative;
       width: 100%;
-      height: 200px;
+      overflow: hidden;
+    }
+    .iframe-container::before {
+      content: "";
+      display: block;
+      padding-top: 56.25%; /* 16:9 aspect ratio */
+    }
+    .iframe-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border: none;
       border-radius: 8px;
-      margin-bottom: 1rem;
-      loading: lazy;
+      visibility: hidden;
+    }
+    .iframe-container iframe.loaded {
+      visibility: visible;
+    }
+
+    /* =============================
+       CUSTOM SCROLLBAR FOR THEME
+       Only applies to .overflow-x-auto
+       where the charts can scroll
+    ==============================*/
+    .overflow-x-auto {
+      /* For Firefox */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.3) rgba(255,255,255,0.1);
+    }
+    .overflow-x-auto::-webkit-scrollbar {
+      height: 8px; /* horizontal scrollbar height */
+    }
+    .overflow-x-auto::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    .overflow-x-auto::-webkit-scrollbar-thumb {
+      background-color: rgba(255,255,255,0.3);
+      border-radius: 4px;
     }
   </style>
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QJK2WEK0V7"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-QJK2WEK0V7');
+    gtag('config','G-QJK2WEK0V7');
   </script>
+
+  <!-- Service Worker Registration -->
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/sw.js').then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-        }).catch((error) => {
-          console.error('Service Worker registration failed:', error);
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js').then(function(reg) {
+          console.log('SW registered:', reg.scope);
+        }).catch(function(err) {
+          console.error('SW registration failed:', err);
         });
       });
     }
   </script>
 </head>
-
 <body class="bg-gray-900 text-gray-200 font-sans leading-relaxed">
-  <header class="glass-effect text-center p-6 mb-6">
-    <h1 class="text-2xl font-bold" id="main-title"></h1>
-    <p class="text-lg text-gray-300 mt-2" id="main-description"></p>
+
+  <!-- Header -->
+  <header class="glass-effect text-center m-4 max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold" id="main-title">Somatic Journey Resources</h1>
+    <p class="mt-2" id="main-description">
+      Quick access to curated somatic stretching videos featuring the cat stretch. All exercises are in one place so you can exercise without clicking around. For free.
+      For more self-growth, visit 
+      <a href="https://zettelkasten.shop" target="_blank" class="underline text-blue-400">zettelkasten.shop</a>
+      and sign up for my 28‑week newsletter to become a more prolific reader.
+    </p>
   </header>
 
-  <main class="px-4 md:px-12" id="main-content"></main>
+  <!-- Tracker Date & 'Today' Button -->
+  <section class="glass-effect m-4 text-center max-w-4xl mx-auto">
+    <div class="flex items-center justify-center gap-2">
+      <label for="trackerDate" class="text-lg font-semibold">Select Tracker Date:</label>
+      <input
+        id="trackerDate"
+        class="p-2 rounded text-gray-800"
+        placeholder="Select date"
+        readonly
+        style="max-width:300px;"
+      />
+      <button
+        id="btnToday"
+        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+      >
+        Today
+      </button>
+    </div>
 
-  <footer class="glass-effect text-center py-4 mt-8">
+    <div class="mx-auto mt-4" style="max-width:300px;">
+      <p id="selectedDateTrackerStatus" class="font-semibold mb-1 text-center"></p>
+      <div class="w-full bg-gray-600 h-2 rounded overflow-hidden">
+        <div id="selectedDateCompletionBar" class="bg-green-500 h-2" style="width:0%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exercises -->
+  <main id="main-content" class="m-4 max-w-4xl mx-auto"></main>
+
+  <!-- Progress & Charts -->
+  <section id="progress-section" class="glass-effect m-4 text-center max-w-4xl mx-auto">
+    <h2 class="text-xl font-bold mb-4">Your Progress</h2>
+    <div class="flex flex-wrap gap-2 mb-4 justify-center">
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="today">Today</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="yesterday">Yesterday</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisWeek">This Week</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastWeek">Last Week</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisMonth">This Month</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastMonth">Last Month</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisYear">This Year</button>
+      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastYear">Last Year</button>
+    </div>
+
+    <!-- Chart Type Switch -->
+    <div class="mb-4 text-center">
+      <select id="chartSelect" class="p-2 rounded bg-gray-800 text-gray-200">
+        <option value="bar" selected>
+          <span data-feather="bar-chart-2" class="inline-block w-4 h-4 mr-1"></span>Bar Chart
+        </option>
+        <option value="line">
+          <span data-feather="trending-up" class="inline-block w-4 h-4 mr-1"></span>Line Chart
+        </option>
+      </select>
+    </div>
+
+    <div id="chartContainer" class="text-center">
+      <div id="barChartContainer" class="grid grid-cols-1 gap-4 justify-items-center">
+        <h3 class="font-semibold mb-2">Filtered Range</h3>
+        <!-- horizontally scrollable container with new scrollbar styling -->
+        <div class="overflow-x-auto w-full">
+          <canvas id="barChart" style="min-width:800px;"></canvas>
+        </div>
+      </div>
+      <div id="lineChartContainer" style="display:none">
+        <h3 class="font-semibold mb-2">Daily Trend</h3>
+        <div class="overflow-x-auto w-full">
+          <canvas id="lineChart" style="min-width:800px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass-effect m-4 text-center max-w-4xl mx-auto">
     <p class="text-sm text-gray-400">© 2024 All rights reserved.</p>
+    <p class="text-xs mt-2 text-gray-400">
+      All habit data is stored locally and remains private.
+    </p>
   </footer>
 
+  <!-- Scripts: Flatpickr + Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <script>
+    /* ============================
+       GLOBALS & INITIALIZATION
+    ============================ */
+    var today = new Date().toISOString().slice(0,10);
+    var trackerDate = today;
+    var progress = JSON.parse(localStorage.getItem('progress') || '{}');
+    if (!progress[trackerDate]) { progress[trackerDate] = []; }
+    var cardsData = null;
+    var activePreset = "";
+    var totalExercises = 0; // set after fetching
+
+    // Date Picker
+    flatpickr("#trackerDate", {
+      dateFormat: "Y-m-d",
+      defaultDate: trackerDate,
+      onChange: function(selectedDates){
+        if(selectedDates.length){
+          trackerDate = selectedDates[0].toISOString().slice(0,10);
+          if(!progress[trackerDate]) {
+            progress[trackerDate] = [];
+          }
+          renderExercises();
+        }
+      }
+    });
+
+    // Today Button => sets date to today
+    document.getElementById('btnToday').addEventListener('click', function(){
+      trackerDate = today;
+      if(!progress[today]) { progress[today] = []; }
+      document.getElementById('trackerDate')._flatpickr.setDate(today, true);
+      renderExercises();
+    });
+
+    // Toggle bar/line chart
+    document.getElementById('chartSelect').addEventListener('change', function(){
+      var val = this.value;
+      document.getElementById('barChartContainer').style.display = (val === "bar") ? "block" : "none";
+      document.getElementById('lineChartContainer').style.display = (val === "line") ? "block" : "none";
+      updateCharts();
+    });
+
+    // Fetch card data
     fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('main-title').innerText = 'Somatic Journey Resources';
-        document.getElementById('main-description').innerText = 'A collection of exercises and resources to help release chronic tension and improve natural movement.';
-        data.cards.forEach(section => {
-          const sectionElement = document.createElement('section');
-          sectionElement.className = 'glass-effect mt-6 py-6 px-6 md:px-8 rounded-xl';
-          const sectionTitle = document.createElement('h2');
-          sectionTitle.className = 'text-lg md:text-xl font-bold mb-4';
-          sectionTitle.innerHTML = `${section.emoji} ${section.title}`;
-          sectionElement.appendChild(sectionTitle);
-          const gridElement = document.createElement('div');
-          gridElement.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
-          section.childcards.forEach(card => {
-            const cardElement = document.createElement('div');
-            cardElement.className = 'mini-card';
-            const cardTitle = document.createElement('h3');
-            cardTitle.innerHTML = `${card.emoji} ${card.title}`;
-            cardElement.appendChild(cardTitle);
-            const mainVideo = document.createElement('iframe');
-            mainVideo.src = card.videos.main_video;
-            mainVideo.allowFullscreen = true;
-            cardElement.appendChild(mainVideo);
-            if (card.videos.alt_video) {
-              const altHeader = document.createElement('h4');
-              altHeader.innerText = 'Alt.';
-              cardElement.appendChild(altHeader);
-              const altVideo = document.createElement('iframe');
-              altVideo.src = card.videos.alt_video;
-              altVideo.allowFullscreen = true;
-              cardElement.appendChild(altVideo);
-            }
-            const bodyParagraph = document.createElement('p');
-            bodyParagraph.innerHTML = card.body.replace(/\n/g, '<br>');
-            cardElement.appendChild(bodyParagraph);
-            gridElement.appendChild(cardElement);
-          });
-          sectionElement.appendChild(gridElement);
-          document.getElementById('main-content').appendChild(sectionElement);
-        });
+      .then(function(response){ return response.json(); })
+      .then(function(data){
+        cardsData = data;
+        // figure out total # of exercises
+        totalExercises = cardsData.cards.reduce(function(acc, section){
+          return acc + section.childcards.length;
+        }, 0);
+        renderExercises();
       });
+
+    /* ============================
+       RENDER EXERCISES
+    ============================ */
+    function renderExercises(){
+      var mainContent = document.getElementById('main-content');
+      mainContent.innerHTML = "";
+
+      cardsData.cards.forEach(function(section){
+        var secEl = document.createElement('section');
+        secEl.className = "glass-effect mb-4";
+        var secTitle = document.createElement('h2');
+        secTitle.className = "font-bold mb-2";
+        secTitle.innerHTML = section.emoji + " " + section.title;
+        secEl.appendChild(secTitle);
+
+        var gridWrapper = document.createElement('div');
+        gridWrapper.className = "max-w-4xl mx-auto";
+        var grid = document.createElement('div');
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-4";
+
+        section.childcards.forEach(function(card){
+          var cardEl = document.createElement('div');
+          cardEl.className = "mini-card";
+
+          // Title
+          var cardTitle = document.createElement('h3');
+          cardTitle.innerHTML = card.emoji + " " + card.title;
+          cardEl.appendChild(cardTitle);
+
+          // Main video
+          var iframeContainerMain = document.createElement('div');
+          iframeContainerMain.className = "iframe-container";
+          var iframeMain = document.createElement('iframe');
+          iframeMain.src = card.videos.main_video;
+          iframeMain.allowFullscreen = true;
+          iframeMain.setAttribute("loading","lazy");
+          iframeMain.onload = function(){
+            iframeMain.classList.add("loaded");
+          };
+          iframeContainerMain.appendChild(iframeMain);
+          cardEl.appendChild(iframeContainerMain);
+
+          // Alt video
+          if(card.videos.alt_video){
+            var altHdr = document.createElement('h4');
+            altHdr.innerText = "Alt.";
+            cardEl.appendChild(altHdr);
+
+            var iframeContainerAlt = document.createElement('div');
+            iframeContainerAlt.className = "iframe-container";
+            var iframeAlt = document.createElement('iframe');
+            iframeAlt.src = card.videos.alt_video;
+            iframeAlt.allowFullscreen = true;
+            iframeAlt.setAttribute("loading","lazy");
+            iframeAlt.onload = function(){
+              iframeAlt.classList.add("loaded");
+            };
+            iframeContainerAlt.appendChild(iframeAlt);
+            cardEl.appendChild(iframeContainerAlt);
+          }
+
+          // Body
+          var bodyPara = document.createElement('p');
+          bodyPara.innerHTML = card.body.replace(/\n/g, "<br>");
+          cardEl.appendChild(bodyPara);
+
+          // Checkbox
+          var label = document.createElement('label');
+          label.className = "mt-2 inline-block";
+          var chk = document.createElement('input');
+          chk.type = "checkbox";
+          chk.className = "done-checkbox mr-1";
+
+          var key = card.title;
+          if((progress[trackerDate] || []).indexOf(key) !== -1){
+            chk.checked = true;
+          }
+
+          chk.addEventListener('change', function(){
+            progress[trackerDate] = progress[trackerDate] || [];
+            if(chk.checked){
+              if(progress[trackerDate].indexOf(key) === -1){
+                progress[trackerDate].push(key);
+              }
+            } else {
+              progress[trackerDate] = progress[trackerDate].filter(function(item){
+                return item !== key;
+              });
+            }
+            localStorage.setItem('progress', JSON.stringify(progress));
+            updateCharts();
+            updateSelectedDateTracker();
+          });
+
+          label.appendChild(chk);
+          label.appendChild(document.createTextNode(" Done " + trackerDate));
+          cardEl.appendChild(label);
+          grid.appendChild(cardEl);
+        });
+
+        gridWrapper.appendChild(grid);
+        secEl.appendChild(gridWrapper);
+        mainContent.appendChild(secEl);
+      });
+
+      updateCharts();
+      updateSelectedDateTracker();
+    }
+
+    /* ============================
+       SELECTED DATE TRACKER BAR
+    ============================ */
+    function updateSelectedDateTracker(){
+      if(!cardsData) return;
+      var completed = progress[trackerDate] ? progress[trackerDate].length : 0;
+      var percent = (totalExercises > 0) ? (completed / totalExercises) * 100 : 0;
+
+      var statusEl = document.getElementById('selectedDateTrackerStatus');
+      var barEl = document.getElementById('selectedDateCompletionBar');
+
+      statusEl.textContent = completed + " out of " + totalExercises + " completed for " + trackerDate;
+      barEl.style.width = percent + "%";
+    }
+
+    /* ============================
+       PRESET FILTER LOGIC
+    ============================ */
+    function getPresetDates(preset){
+      var now = new Date(), dates = [];
+      if(preset === "today"){
+        dates.push(new Date(now));
+      } else if(preset === "yesterday"){
+        var d = new Date(now);
+        d.setDate(d.getDate()-1);
+        dates.push(d);
+      } else if(preset === "thisWeek"){
+        var d = new Date(now);
+        var diff = d.getDate() - d.getDay() + 1;
+        var monday = new Date(d.setDate(diff));
+        for(var i=0; i<7; i++){
+          var dt = new Date(monday);
+          dt.setDate(monday.getDate()+i);
+          dates.push(dt);
+        }
+      } else if(preset === "lastWeek"){
+        var d = new Date(now);
+        var diff = d.getDate() - d.getDay() - 6;
+        var monday = new Date(d.setDate(diff));
+        for(var i=0; i<7; i++){
+          var dt = new Date(monday);
+          dt.setDate(monday.getDate()+i);
+          dates.push(dt);
+        }
+      } else if(preset === "thisMonth"){
+        var d = new Date(now.getFullYear(), now.getMonth(), 1);
+        var days = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+        for(var i=0; i<days; i++){
+          var dt = new Date(d);
+          dt.setDate(d.getDate()+i);
+          dates.push(dt);
+        }
+      } else if(preset === "lastMonth"){
+        var d = new Date(now.getFullYear(), now.getMonth()-1, 1);
+        var days = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        for(var i=0; i<days; i++){
+          var dt = new Date(d);
+          dt.setDate(d.getDate()+i);
+          dates.push(dt);
+        }
+      } else if(preset === "thisYear"){
+        var d = new Date(now.getFullYear(), 0, 1);
+        var daysInYear = (now.getFullYear() % 4 === 0 && now.getFullYear() % 100 !== 0) || (now.getFullYear() % 400 === 0) ? 366 : 365;
+        for(var i=0; i<daysInYear; i++){
+          var dt = new Date(d);
+          dt.setDate(d.getDate()+i);
+          dates.push(dt);
+        }
+      } else if(preset === "lastYear"){
+        var year = now.getFullYear() - 1;
+        var d = new Date(year, 0, 1);
+        var daysInYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 366 : 365;
+        for(var i=0; i<daysInYear; i++){
+          var dt = new Date(d);
+          dt.setDate(d.getDate()+i);
+          dates.push(dt);
+        }
+      }
+      return dates;
+    }
+    function toIsoDate(dateObj){
+      var y = dateObj.getFullYear();
+      var m = ("0"+(dateObj.getMonth()+1)).slice(-2);
+      var d = ("0"+dateObj.getDate()).slice(-2);
+      return y + "-" + m + "-" + d;
+    }
+    function filterDatesByPreset(preset){
+      var allDates = Object.keys(progress).sort();
+      var presetDateObjs = getPresetDates(preset).map(toIsoDate);
+      return allDates.filter(function(dateKey){
+        return presetDateObjs.indexOf(dateKey) !== -1;
+      });
+    }
+
+    document.querySelectorAll('.preset-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        activePreset = btn.getAttribute('data-preset');
+        updateCharts();
+      });
+    });
+
+    /* ============================
+       CHART SETUP
+    ============================ */
+    var ctxBar = document.getElementById('barChart').getContext('2d');
+    var ctxLine = document.getElementById('lineChart').getContext('2d');
+
+    var barChart = new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [
+          { label: 'Completed', data: [], backgroundColor: '#4ade80' },
+          { label: 'Incomplete', data: [], backgroundColor: '#ef4444' }
+        ]
+      },
+      options:{
+        responsive: true,
+        scales:{
+          y:{
+            beginAtZero:true,
+            ticks:{ precision:0 }
+          }
+        }
+      }
+    });
+
+    var lineChart = new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets:[
+          {
+            label: 'Exercises Done',
+            data: [],
+            borderColor: '#3b82f6',
+            backgroundColor: '#3b82f6',
+            fill: false
+          }
+        ]
+      },
+      options:{
+        responsive: true,
+        scales:{
+          y:{
+            beginAtZero:true
+            // set .max in updateCharts() if desired
+          }
+        }
+      }
+    });
+
+    /* ============================
+       UPDATE CHARTS
+    ============================ */
+    function updateCharts(){
+      // Filter dates if preset is active
+      var allDateKeys = Object.keys(progress).sort();
+      var dateKeysToUse = activePreset ? filterDatesByPreset(activePreset) : allDateKeys;
+
+      // Update bar chart
+      var totalExercisesAllTime = document.querySelectorAll('.done-checkbox').length;
+      var completedData = dateKeysToUse.map(function(dKey){
+        return progress[dKey] ? progress[dKey].length : 0;
+      });
+      var incompleteData = completedData.map(function(val){
+        return totalExercisesAllTime - val;
+      });
+
+      barChart.data.labels = dateKeysToUse;
+      barChart.data.datasets[0].data = completedData;
+      barChart.data.datasets[1].data = incompleteData;
+      barChart.update();
+
+      // If you'd like line chart to always go up to totalExercises:
+      // lineChart.options.scales.y.max = totalExercises;
+
+      // For single day => horizontal line
+      if(dateKeysToUse.length === 1){
+        var date = dateKeysToUse[0];
+        var c = progress[date] ? progress[date].length : 0;
+        lineChart.data.labels = [date, ' '];
+        lineChart.data.datasets[0].data = [c, c];
+      }
+      else {
+        lineChart.data.labels = dateKeysToUse;
+        lineChart.data.datasets[0].data = dateKeysToUse.map(function(dKey){
+          return progress[dKey] ? progress[dKey].length : 0;
+        });
+      }
+      lineChart.update();
+    }
+
+    // Feather icons
+    feather.replace();
   </script>
 </body>
-
 </html>
