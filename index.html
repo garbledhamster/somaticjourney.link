@@ -207,13 +207,18 @@
         <h3 class="font-semibold mb-2">Filtered Range</h3>
         <!-- horizontally scrollable container with new scrollbar styling -->
         <div class="overflow-x-auto w-full">
-          <canvas id="barChart" style="min-width:800px;"></canvas>
+          <!-- A relative container that can scale on mobile, with a fixed height -->
+          <div class="relative" style="min-width:600px; height:400px;">
+            <canvas id="barChart"></canvas>
+          </div>
         </div>
       </div>
       <div id="lineChartContainer" style="display:none">
         <h3 class="font-semibold mb-2">Daily Trend</h3>
         <div class="overflow-x-auto w-full">
-          <canvas id="lineChart" style="min-width:800px;"></canvas>
+          <div class="relative" style="min-width:600px; height:400px;">
+            <canvas id="lineChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -243,7 +248,7 @@
     var activePreset = "";
     var totalExercises = 0; // set after fetching
 
-    // Date Picker
+    // Initialize the date picker
     flatpickr("#trackerDate", {
       dateFormat: "Y-m-d",
       defaultDate: trackerDate,
@@ -258,7 +263,7 @@
       }
     });
 
-    // Today Button => sets date to today
+    // "Today" button => sets date to today
     document.getElementById('btnToday').addEventListener('click', function(){
       trackerDate = today;
       if(!progress[today]) { progress[today] = []; }
@@ -266,7 +271,7 @@
       renderExercises();
     });
 
-    // Toggle bar/line chart
+    // Bar/Line chart switch
     document.getElementById('chartSelect').addEventListener('change', function(){
       var val = this.value;
       document.getElementById('barChartContainer').style.display = (val === "bar") ? "block" : "none";
@@ -274,12 +279,12 @@
       updateCharts();
     });
 
-    // Fetch card data
+    // Fetch data
     fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
       .then(function(response){ return response.json(); })
       .then(function(data){
         cardsData = data;
-        // figure out total # of exercises
+        // total # of childcards
         totalExercises = cardsData.cards.reduce(function(acc, section){
           return acc + section.childcards.length;
         }, 0);
@@ -513,6 +518,7 @@
       },
       options:{
         responsive: true,
+        maintainAspectRatio: false, /* important to let it scale in the .relative container */
         scales:{
           y:{
             beginAtZero:true,
@@ -538,10 +544,10 @@
       },
       options:{
         responsive: true,
+        maintainAspectRatio: false, /* also let it scale */
         scales:{
           y:{
             beginAtZero:true
-            // set .max in updateCharts() if desired
           }
         }
       }
@@ -555,7 +561,7 @@
       var allDateKeys = Object.keys(progress).sort();
       var dateKeysToUse = activePreset ? filterDatesByPreset(activePreset) : allDateKeys;
 
-      // Update bar chart
+      // Bar chart
       var totalExercisesAllTime = document.querySelectorAll('.done-checkbox').length;
       var completedData = dateKeysToUse.map(function(dKey){
         return progress[dKey] ? progress[dKey].length : 0;
@@ -568,9 +574,6 @@
       barChart.data.datasets[0].data = completedData;
       barChart.data.datasets[1].data = incompleteData;
       barChart.update();
-
-      // If you'd like line chart to always go up to totalExercises:
-      // lineChart.options.scales.y.max = totalExercises;
 
       // For single day => horizontal line
       if(dateKeysToUse.length === 1){
@@ -585,6 +588,7 @@
           return progress[dKey] ? progress[dKey].length : 0;
         });
       }
+
       lineChart.update();
     }
 
