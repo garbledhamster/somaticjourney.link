@@ -27,27 +27,71 @@
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
-  
-  <!-- Flatpickr CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"/>
 
+  <!-- Flatpickr CSS (dark theme) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css"/>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"/>
+
+  <!-- Style Overrides -->
   <style>
+    /* Base Font & Body */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #111827; /* a bit darker than bg-gray-900 */
+      color: #e8e8e8; /* slightly brighter than text-gray-200 */
+      font-size: 1rem;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeIn 0.5s forwards ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        font-size: 1.125rem; 
+      }
+    }
+
+    /* Glass Effect */
     .glass-effect {
       backdrop-filter: blur(6px);
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.2);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 2rem;
+      margin-bottom: 1rem;
+      transition: opacity 0.3s ease-in-out;
     }
+
+    @media (max-width: 640px) {
+      .glass-effect {
+        padding: 1rem;
+      }
+    }
+
+    /* Mini Cards */
     .mini-card {
-      background: rgba(0,0,0,0.25);
+      background: linear-gradient(145deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
       border: 1px solid rgba(255,255,255,0.15);
       border-radius: 8px;
       padding: 12px;
       margin-bottom: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .mini-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.35);
     }
     .mini-card h3 {
       display: block;
@@ -60,10 +104,30 @@
       padding: 0.5rem;
       border-radius: 6px;
     }
+
+    /* Buttons & Inputs */
+    button {
+      transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    }
+    button:active {
+      transform: scale(0.95);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    }
+    input {
+      border: none;
+      background-color: rgba(255,255,255,0.2);
+      transition: box-shadow 0.2s ease;
+    }
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(59,130,246,0.5);
+    }
     input[readonly] {
       cursor: pointer;
       caret-color: transparent;
     }
+
+    /* Iframe Container */
     .iframe-container {
       position: relative;
       width: 100%;
@@ -72,7 +136,7 @@
     .iframe-container::before {
       content: "";
       display: block;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
+      padding-top: 56.25%; 
     }
     .iframe-container iframe {
       position: absolute;
@@ -81,25 +145,25 @@
       width: 100%;
       height: 100%;
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       visibility: hidden;
     }
     .iframe-container iframe.loaded {
       visibility: visible;
     }
+    @media (max-width: 480px) {
+      .iframe-container::before {
+        padding-top: 75%; 
+      }
+    }
 
-    /* =============================
-       CUSTOM SCROLLBAR FOR THEME
-       Only applies to .overflow-x-auto
-       where the charts can scroll
-    ==============================*/
+    /* Overflow X Auto - Custom scrollbar */
     .overflow-x-auto {
-      /* For Firefox */
       scrollbar-width: thin;
       scrollbar-color: rgba(255,255,255,0.3) rgba(255,255,255,0.1);
     }
     .overflow-x-auto::-webkit-scrollbar {
-      height: 8px; /* horizontal scrollbar height */
+      height: 8px;
     }
     .overflow-x-auto::-webkit-scrollbar-track {
       background: rgba(255,255,255,0.1);
@@ -108,6 +172,61 @@
     .overflow-x-auto::-webkit-scrollbar-thumb {
       background-color: rgba(255,255,255,0.3);
       border-radius: 4px;
+    }
+
+    /* Header & Footer Gradients */
+    header.glass-effect {
+      background: linear-gradient(to bottom right, rgba(59,130,246,0.2), rgba(99,102,241,0.1));
+    }
+    footer.glass-effect {
+      background: linear-gradient(to bottom right, rgba(99,102,241,0.2), rgba(59,130,246,0.1));
+      font-size: 0.9rem;
+    }
+
+    /* Loader Overlay */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+    }
+    #loader.hidden {
+      display: none;
+    }
+    .loader-spinner {
+      display: inline-block;
+      height: 2rem;
+      width: 2rem;
+      border: 4px solid #3b82f6;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Scroll to Top Button */
+    #top-btn {
+      position: fixed;
+      bottom: 4rem;
+      right: 1rem;
+      background-color: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      padding: 0.75rem;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 50;
+      transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+    }
+    #top-btn:active {
+      transform: scale(0.95);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     }
   </style>
 
@@ -133,7 +252,18 @@
     }
   </script>
 </head>
-<body class="bg-gray-900 text-gray-200 font-sans leading-relaxed">
+<body>
+
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-spinner"></div>
+</div>
+
+<!-- Skip Link (Accessibility) -->
+<a href="#main-content" class="sr-only focus:not-sr-only">Skip to Content</a>
+
+<!-- Scroll to Top Button -->
+<button id="top-btn" onclick="scrollToTop()" title="Scroll to top" style="display:none;">↑</button>
 
 <!-- Header Banner -->
 <header class="glass-effect text-center m-4 max-w-4xl mx-auto py-6">
@@ -149,464 +279,472 @@
   </p>
 </header>
 
+<!-- Tracker Date & 'Today' Button -->
+<section class="glass-effect m-4 text-center max-w-4xl mx-auto">
+  <div class="flex items-center justify-center gap-2">
+    <label for="trackerDate" class="text-lg font-semibold">Select Tracker Date:</label>
+    <input
+      id="trackerDate"
+      class="p-2 rounded text-gray-800"
+      placeholder="Select date"
+      readonly
+      style="max-width:300px;"
+    />
+    <button
+      id="btnToday"
+      class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
+    >
+      Today
+    </button>
+  </div>
 
-
-  <!-- Tracker Date & 'Today' Button -->
-  <section class="glass-effect m-4 text-center max-w-4xl mx-auto">
-    <div class="flex items-center justify-center gap-2">
-      <label for="trackerDate" class="text-lg font-semibold">Select Tracker Date:</label>
-      <input
-        id="trackerDate"
-        class="p-2 rounded text-gray-800"
-        placeholder="Select date"
-        readonly
-        style="max-width:300px;"
-      />
-      <button
-        id="btnToday"
-        class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded"
-      >
-        Today
-      </button>
+  <div class="mx-auto mt-4" style="max-width:300px;">
+    <p id="selectedDateTrackerStatus" class="font-semibold mb-1 text-center"></p>
+    <div class="w-full bg-gray-600 h-2 rounded overflow-hidden">
+      <div id="selectedDateCompletionBar" class="bg-green-500 h-2" style="width:0%"></div>
     </div>
+  </div>
+</section>
 
-    <div class="mx-auto mt-4" style="max-width:300px;">
-      <p id="selectedDateTrackerStatus" class="font-semibold mb-1 text-center"></p>
-      <div class="w-full bg-gray-600 h-2 rounded overflow-hidden">
-        <div id="selectedDateCompletionBar" class="bg-green-500 h-2" style="width:0%"></div>
-      </div>
-    </div>
-  </section>
+<!-- Exercises -->
+<main id="main-content" class="m-4 max-w-4xl mx-auto"></main>
 
-  <!-- Exercises -->
-  <main id="main-content" class="m-4 max-w-4xl mx-auto"></main>
+<!-- Progress & Charts -->
+<section id="progress-section" class="glass-effect m-4 text-center max-w-4xl mx-auto">
+  <h2 class="text-xl font-bold mb-4">Your Progress</h2>
+  <div class="flex flex-wrap gap-2 mb-4 justify-center">
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="today">Today</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="yesterday">Yesterday</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisWeek">This Week</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastWeek">Last Week</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisMonth">This Month</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastMonth">Last Month</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisYear">This Year</button>
+    <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastYear">Last Year</button>
+  </div>
 
-  <!-- Progress & Charts -->
-  <section id="progress-section" class="glass-effect m-4 text-center max-w-4xl mx-auto">
-    <h2 class="text-xl font-bold mb-4">Your Progress</h2>
-    <div class="flex flex-wrap gap-2 mb-4 justify-center">
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="today">Today</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="yesterday">Yesterday</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisWeek">This Week</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastWeek">Last Week</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisMonth">This Month</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastMonth">Last Month</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="thisYear">This Year</button>
-      <button class="preset-btn bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded" data-preset="lastYear">Last Year</button>
-    </div>
+  <!-- Chart Type Switch -->
+  <div class="mb-4 text-center">
+    <select id="chartSelect" class="p-2 rounded bg-gray-800 text-gray-200">
+      <option value="bar" selected>Bar Chart</option>
+      <option value="line">Line Chart</option>
+    </select>
+  </div>
 
-    <!-- Chart Type Switch -->
-    <div class="mb-4 text-center">
-      <select id="chartSelect" class="p-2 rounded bg-gray-800 text-gray-200">
-        <option value="bar" selected>
-          <span data-feather="bar-chart-2" class="inline-block w-4 h-4 mr-1"></span>Bar Chart
-        </option>
-        <option value="line">
-          <span data-feather="trending-up" class="inline-block w-4 h-4 mr-1"></span>Line Chart
-        </option>
-      </select>
-    </div>
-
-    <div id="chartContainer" class="text-center">
-      <div id="barChartContainer" class="grid grid-cols-1 gap-4 justify-items-center">
-        <h3 class="font-semibold mb-2">Filtered Range</h3>
-        <!-- horizontally scrollable container with new scrollbar styling -->
-        <div class="overflow-x-auto w-full">
-          <!-- A relative container that can scale on mobile, with a fixed height -->
-          <div class="relative" style="min-width:600px; height:400px;">
-            <canvas id="barChart"></canvas>
-          </div>
-        </div>
-      </div>
-      <div id="lineChartContainer" style="display:none">
-        <h3 class="font-semibold mb-2">Daily Trend</h3>
-        <div class="overflow-x-auto w-full">
-          <div class="relative" style="min-width:600px; height:400px;">
-            <canvas id="lineChart"></canvas>
-          </div>
+  <div id="chartContainer" class="text-center">
+    <div id="barChartContainer" class="grid grid-cols-1 gap-4 justify-items-center">
+      <h3 class="font-semibold mb-2">Filtered Range</h3>
+      <div class="overflow-x-auto w-full">
+        <div class="relative" style="min-width:600px; height:400px;">
+          <canvas id="barChart"></canvas>
         </div>
       </div>
     </div>
-  </section>
+    <div id="lineChartContainer" style="display:none">
+      <h3 class="font-semibold mb-2">Daily Trend</h3>
+      <div class="overflow-x-auto w-full">
+        <div class="relative" style="min-width:600px; height:400px;">
+          <canvas id="lineChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="glass-effect m-4 text-center max-w-4xl mx-auto">
-    <p class="text-sm text-gray-400">© 2024 All rights reserved.</p>
-    <p class="text-xs mt-2 text-gray-400">
-      All habit data is stored locally and remains private.
-    </p>
-  </footer>
+<!-- Footer -->
+<footer class="glass-effect m-4 text-center max-w-4xl mx-auto">
+  <p class="text-sm text-gray-400">© 2024 All rights reserved.</p>
+  <p class="text-xs mt-2 text-gray-400">
+    All habit data is stored locally and remains private.
+  </p>
+</footer>
 
-  <!-- Scripts: Flatpickr + Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Scripts: Flatpickr + Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  /*
+    Scroll to Top
+  */
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  <script>
-    /* ============================
-       GLOBALS & INITIALIZATION
-    ============================ */
-    var today = new Date().toISOString().slice(0,10);
-    var trackerDate = today;
-    var progress = JSON.parse(localStorage.getItem('progress') || '{}');
-    if (!progress[trackerDate]) { progress[trackerDate] = []; }
-    var cardsData = null;
-    var activePreset = "";
-    var totalExercises = 0; // set after fetching
+  window.addEventListener('scroll', function() {
+    var btn = document.getElementById('top-btn');
+    if (window.scrollY > 200) {
+      btn.style.display = 'block';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
 
-    // Initialize the date picker
-    flatpickr("#trackerDate", {
-      dateFormat: "Y-m-d",
-      defaultDate: trackerDate,
-      onChange: function(selectedDates){
-        if(selectedDates.length){
-          trackerDate = selectedDates[0].toISOString().slice(0,10);
-          if(!progress[trackerDate]) {
-            progress[trackerDate] = [];
-          }
-          renderExercises();
+  /*
+    Globals & Initialization
+  */
+  var today = new Date().toISOString().slice(0,10);
+  var trackerDate = today;
+  var progress = JSON.parse(localStorage.getItem('progress') || '{}');
+  if (!progress[trackerDate]) { progress[trackerDate] = []; }
+  var cardsData = null;
+  var activePreset = "";
+  var totalExercises = 0;
+
+  // Initialize date picker
+  flatpickr("#trackerDate", {
+    dateFormat: "Y-m-d",
+    defaultDate: trackerDate,
+    theme: "dark",
+    onChange: function(selectedDates){
+      if(selectedDates.length){
+        trackerDate = selectedDates[0].toISOString().slice(0,10);
+        if(!progress[trackerDate]) {
+          progress[trackerDate] = [];
         }
-      }
-    });
-
-    // "Today" button => sets date to today
-    document.getElementById('btnToday').addEventListener('click', function(){
-      trackerDate = today;
-      if(!progress[today]) { progress[today] = []; }
-      document.getElementById('trackerDate')._flatpickr.setDate(today, true);
-      renderExercises();
-    });
-
-    // Bar/Line chart switch
-    document.getElementById('chartSelect').addEventListener('change', function(){
-      var val = this.value;
-      document.getElementById('barChartContainer').style.display = (val === "bar") ? "block" : "none";
-      document.getElementById('lineChartContainer').style.display = (val === "line") ? "block" : "none";
-      updateCharts();
-    });
-
-    // Fetch data
-    fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
-      .then(function(response){ return response.json(); })
-      .then(function(data){
-        cardsData = data;
-        // total # of childcards
-        totalExercises = cardsData.cards.reduce(function(acc, section){
-          return acc + section.childcards.length;
-        }, 0);
         renderExercises();
-      });
+      }
+    }
+  });
 
-    /* ============================
-       RENDER EXERCISES
-    ============================ */
-    function renderExercises(){
-      var mainContent = document.getElementById('main-content');
-      mainContent.innerHTML = "";
+  // "Today" button => sets date to today
+  document.getElementById('btnToday').addEventListener('click', function(){
+    trackerDate = today;
+    if(!progress[today]) { progress[today] = []; }
+    document.getElementById('trackerDate')._flatpickr.setDate(today, true);
+    renderExercises();
+  });
 
-      cardsData.cards.forEach(function(section){
-        var secEl = document.createElement('section');
-        secEl.className = "glass-effect mb-4";
-        var secTitle = document.createElement('h2');
-        secTitle.className = "font-bold mb-2";
-        secTitle.innerHTML = section.emoji + " " + section.title;
-        secEl.appendChild(secTitle);
+  // Bar/Line chart switch
+  document.getElementById('chartSelect').addEventListener('change', function(){
+    var val = this.value;
+    document.getElementById('barChartContainer').style.display = (val === "bar") ? "block" : "none";
+    document.getElementById('lineChartContainer').style.display = (val === "line") ? "block" : "none";
+    updateCharts();
+  });
 
-        var gridWrapper = document.createElement('div');
-        gridWrapper.className = "max-w-4xl mx-auto";
-        var grid = document.createElement('div');
-        grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-4";
+  // Fetch data
+  fetch('https://raw.githubusercontent.com/garbledhamster/somaticjourney.link/main/cards.json')
+    .then(function(response){ return response.json(); })
+    .then(function(data){
+      cardsData = data;
+      totalExercises = cardsData.cards.reduce(function(acc, section){
+        return acc + section.childcards.length;
+      }, 0);
+      renderExercises();
+    })
+    .finally(function(){
+      var loader = document.getElementById('loader');
+      loader.classList.add('hidden');
+    });
 
-        section.childcards.forEach(function(card){
-          var cardEl = document.createElement('div');
-          cardEl.className = "mini-card";
+  /*
+    Render Exercises
+  */
+  function renderExercises(){
+    var mainContent = document.getElementById('main-content');
+    mainContent.innerHTML = "";
 
-          // Title
-          var cardTitle = document.createElement('h3');
-          cardTitle.innerHTML = card.emoji + " " + card.title;
-          cardEl.appendChild(cardTitle);
+    cardsData.cards.forEach(function(section){
+      var secEl = document.createElement('section');
+      secEl.className = "glass-effect";
 
-          // Main video
-          var iframeContainerMain = document.createElement('div');
-          iframeContainerMain.className = "iframe-container";
-          var iframeMain = document.createElement('iframe');
-          iframeMain.src = card.videos.main_video;
-          iframeMain.allowFullscreen = true;
-          iframeMain.setAttribute("loading","lazy");
-          iframeMain.onload = function(){
-            iframeMain.classList.add("loaded");
+      var secTitle = document.createElement('h2');
+      secTitle.className = "font-bold mb-2";
+      secTitle.innerHTML = section.emoji + " " + section.title;
+      secEl.appendChild(secTitle);
+
+      var gridWrapper = document.createElement('div');
+      gridWrapper.className = "max-w-4xl mx-auto";
+      var grid = document.createElement('div');
+      grid.className = "grid grid-cols-1 sm:grid-cols-2 gap-4";
+
+      section.childcards.forEach(function(card){
+        var cardEl = document.createElement('div');
+        cardEl.className = "mini-card";
+
+        var cardTitle = document.createElement('h3');
+        cardTitle.innerHTML = card.emoji + " " + card.title;
+        cardEl.appendChild(cardTitle);
+
+        // Main video
+        var iframeContainerMain = document.createElement('div');
+        iframeContainerMain.className = "iframe-container";
+        var iframeMain = document.createElement('iframe');
+        iframeMain.src = card.videos.main_video;
+        iframeMain.allowFullscreen = true;
+        iframeMain.setAttribute("loading","lazy");
+        iframeMain.onload = function(){
+          iframeMain.classList.add("loaded");
+        };
+        iframeContainerMain.appendChild(iframeMain);
+        cardEl.appendChild(iframeContainerMain);
+
+        // Alt video
+        if(card.videos.alt_video){
+          var altHdr = document.createElement('h4');
+          altHdr.innerText = "Alt.";
+          cardEl.appendChild(altHdr);
+
+          var iframeContainerAlt = document.createElement('div');
+          iframeContainerAlt.className = "iframe-container";
+          var iframeAlt = document.createElement('iframe');
+          iframeAlt.src = card.videos.alt_video;
+          iframeAlt.allowFullscreen = true;
+          iframeAlt.setAttribute("loading","lazy");
+          iframeAlt.onload = function(){
+            iframeAlt.classList.add("loaded");
           };
-          iframeContainerMain.appendChild(iframeMain);
-          cardEl.appendChild(iframeContainerMain);
+          iframeContainerAlt.appendChild(iframeAlt);
+          cardEl.appendChild(iframeContainerAlt);
+        }
 
-          // Alt video
-          if(card.videos.alt_video){
-            var altHdr = document.createElement('h4');
-            altHdr.innerText = "Alt.";
-            cardEl.appendChild(altHdr);
+        var bodyPara = document.createElement('p');
+        bodyPara.innerHTML = card.body.replace(/\n/g, "<br>");
+        cardEl.appendChild(bodyPara);
 
-            var iframeContainerAlt = document.createElement('div');
-            iframeContainerAlt.className = "iframe-container";
-            var iframeAlt = document.createElement('iframe');
-            iframeAlt.src = card.videos.alt_video;
-            iframeAlt.allowFullscreen = true;
-            iframeAlt.setAttribute("loading","lazy");
-            iframeAlt.onload = function(){
-              iframeAlt.classList.add("loaded");
-            };
-            iframeContainerAlt.appendChild(iframeAlt);
-            cardEl.appendChild(iframeContainerAlt);
-          }
+        // Checkbox
+        var label = document.createElement('label');
+        label.className = "mt-2 inline-block";
+        var chk = document.createElement('input');
+        chk.type = "checkbox";
+        chk.className = "done-checkbox mr-1";
 
-          // Body
-          var bodyPara = document.createElement('p');
-          bodyPara.innerHTML = card.body.replace(/\n/g, "<br>");
-          cardEl.appendChild(bodyPara);
+        var key = card.title;
+        if((progress[trackerDate] || []).indexOf(key) !== -1){
+          chk.checked = true;
+        }
 
-          // Checkbox
-          var label = document.createElement('label');
-          label.className = "mt-2 inline-block";
-          var chk = document.createElement('input');
-          chk.type = "checkbox";
-          chk.className = "done-checkbox mr-1";
-
-          var key = card.title;
-          if((progress[trackerDate] || []).indexOf(key) !== -1){
-            chk.checked = true;
-          }
-
-          chk.addEventListener('change', function(){
-            progress[trackerDate] = progress[trackerDate] || [];
-            if(chk.checked){
-              if(progress[trackerDate].indexOf(key) === -1){
-                progress[trackerDate].push(key);
-              }
-            } else {
-              progress[trackerDate] = progress[trackerDate].filter(function(item){
-                return item !== key;
-              });
+        chk.addEventListener('change', function(){
+          progress[trackerDate] = progress[trackerDate] || [];
+          if(chk.checked){
+            if(progress[trackerDate].indexOf(key) === -1){
+              progress[trackerDate].push(key);
             }
-            localStorage.setItem('progress', JSON.stringify(progress));
-            updateCharts();
-            updateSelectedDateTracker();
-          });
-
-          label.appendChild(chk);
-          label.appendChild(document.createTextNode(" Done " + trackerDate));
-          cardEl.appendChild(label);
-          grid.appendChild(cardEl);
+          } else {
+            progress[trackerDate] = progress[trackerDate].filter(function(item){
+              return item !== key;
+            });
+          }
+          localStorage.setItem('progress', JSON.stringify(progress));
+          updateCharts();
+          updateSelectedDateTracker();
         });
 
-        gridWrapper.appendChild(grid);
-        secEl.appendChild(gridWrapper);
-        mainContent.appendChild(secEl);
+        label.appendChild(chk);
+        label.appendChild(document.createTextNode(" Done " + trackerDate));
+        cardEl.appendChild(label);
+        grid.appendChild(cardEl);
       });
 
+      gridWrapper.appendChild(grid);
+      secEl.appendChild(gridWrapper);
+      mainContent.appendChild(secEl);
+    });
+
+    updateCharts();
+    updateSelectedDateTracker();
+  }
+
+  /*
+    Selected Date Tracker Bar
+  */
+  function updateSelectedDateTracker(){
+    if(!cardsData) return;
+    var completed = progress[trackerDate] ? progress[trackerDate].length : 0;
+    var percent = (totalExercises > 0) ? (completed / totalExercises) * 100 : 0;
+
+    var statusEl = document.getElementById('selectedDateTrackerStatus');
+    var barEl = document.getElementById('selectedDateCompletionBar');
+
+    statusEl.textContent = completed + " out of " + totalExercises + " completed for " + trackerDate;
+    barEl.style.width = percent + "%";
+  }
+
+  /*
+    Preset Filter Logic
+  */
+  function getPresetDates(preset){
+    var now = new Date(), dates = [];
+    if(preset === "today"){
+      dates.push(new Date(now));
+    } else if(preset === "yesterday"){
+      var d = new Date(now);
+      d.setDate(d.getDate()-1);
+      dates.push(d);
+    } else if(preset === "thisWeek"){
+      var d = new Date(now);
+      var diff = d.getDate() - d.getDay() + 1;
+      var monday = new Date(d.setDate(diff));
+      for(var i=0; i<7; i++){
+        var dt = new Date(monday);
+        dt.setDate(monday.getDate()+i);
+        dates.push(dt);
+      }
+    } else if(preset === "lastWeek"){
+      var d = new Date(now);
+      var diff = d.getDate() - d.getDay() - 6;
+      var monday = new Date(d.setDate(diff));
+      for(var i=0; i<7; i++){
+        var dt = new Date(monday);
+        dt.setDate(monday.getDate()+i);
+        dates.push(dt);
+      }
+    } else if(preset === "thisMonth"){
+      var d = new Date(now.getFullYear(), now.getMonth(), 1);
+      var days = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+      for(var i=0; i<days; i++){
+        var dt = new Date(d);
+        dt.setDate(d.getDate()+i);
+        dates.push(dt);
+      }
+    } else if(preset === "lastMonth"){
+      var d = new Date(now.getFullYear(), now.getMonth()-1, 1);
+      var days = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+      for(var i=0; i<days; i++){
+        var dt = new Date(d);
+        dt.setDate(d.getDate()+i);
+        dates.push(dt);
+      }
+    } else if(preset === "thisYear"){
+      var d = new Date(now.getFullYear(), 0, 1);
+      var daysInYear = (now.getFullYear() % 4 === 0 && now.getFullYear() % 100 !== 0) || (now.getFullYear() % 400 === 0) ? 366 : 365;
+      for(var i=0; i<daysInYear; i++){
+        var dt = new Date(d);
+        dt.setDate(d.getDate()+i);
+        dates.push(dt);
+      }
+    } else if(preset === "lastYear"){
+      var year = now.getFullYear() - 1;
+      var d = new Date(year, 0, 1);
+      var daysInYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 366 : 365;
+      for(var i=0; i<daysInYear; i++){
+        var dt = new Date(d);
+        dt.setDate(d.getDate()+i);
+        dates.push(dt);
+      }
+    }
+    return dates;
+  }
+  function toIsoDate(dateObj){
+    var y = dateObj.getFullYear();
+    var m = ("0"+(dateObj.getMonth()+1)).slice(-2);
+    var d = ("0"+dateObj.getDate()).slice(-2);
+    return y + "-" + m + "-" + d;
+  }
+  function filterDatesByPreset(preset){
+    var allDates = Object.keys(progress).sort();
+    var presetDateObjs = getPresetDates(preset).map(toIsoDate);
+    return allDates.filter(function(dateKey){
+      return presetDateObjs.indexOf(dateKey) !== -1;
+    });
+  }
+
+  document.querySelectorAll('.preset-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      activePreset = btn.getAttribute('data-preset');
       updateCharts();
-      updateSelectedDateTracker();
-    }
+    });
+  });
 
-    /* ============================
-       SELECTED DATE TRACKER BAR
-    ============================ */
-    function updateSelectedDateTracker(){
-      if(!cardsData) return;
-      var completed = progress[trackerDate] ? progress[trackerDate].length : 0;
-      var percent = (totalExercises > 0) ? (completed / totalExercises) * 100 : 0;
+  /*
+    Chart Setup
+  */
+  var ctxBar = document.getElementById('barChart').getContext('2d');
+  var ctxLine = document.getElementById('lineChart').getContext('2d');
 
-      var statusEl = document.getElementById('selectedDateTrackerStatus');
-      var barEl = document.getElementById('selectedDateCompletionBar');
-
-      statusEl.textContent = completed + " out of " + totalExercises + " completed for " + trackerDate;
-      barEl.style.width = percent + "%";
-    }
-
-    /* ============================
-       PRESET FILTER LOGIC
-    ============================ */
-    function getPresetDates(preset){
-      var now = new Date(), dates = [];
-      if(preset === "today"){
-        dates.push(new Date(now));
-      } else if(preset === "yesterday"){
-        var d = new Date(now);
-        d.setDate(d.getDate()-1);
-        dates.push(d);
-      } else if(preset === "thisWeek"){
-        var d = new Date(now);
-        var diff = d.getDate() - d.getDay() + 1;
-        var monday = new Date(d.setDate(diff));
-        for(var i=0; i<7; i++){
-          var dt = new Date(monday);
-          dt.setDate(monday.getDate()+i);
-          dates.push(dt);
-        }
-      } else if(preset === "lastWeek"){
-        var d = new Date(now);
-        var diff = d.getDate() - d.getDay() - 6;
-        var monday = new Date(d.setDate(diff));
-        for(var i=0; i<7; i++){
-          var dt = new Date(monday);
-          dt.setDate(monday.getDate()+i);
-          dates.push(dt);
-        }
-      } else if(preset === "thisMonth"){
-        var d = new Date(now.getFullYear(), now.getMonth(), 1);
-        var days = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
-        for(var i=0; i<days; i++){
-          var dt = new Date(d);
-          dt.setDate(d.getDate()+i);
-          dates.push(dt);
-        }
-      } else if(preset === "lastMonth"){
-        var d = new Date(now.getFullYear(), now.getMonth()-1, 1);
-        var days = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-        for(var i=0; i<days; i++){
-          var dt = new Date(d);
-          dt.setDate(d.getDate()+i);
-          dates.push(dt);
-        }
-      } else if(preset === "thisYear"){
-        var d = new Date(now.getFullYear(), 0, 1);
-        var daysInYear = (now.getFullYear() % 4 === 0 && now.getFullYear() % 100 !== 0) || (now.getFullYear() % 400 === 0) ? 366 : 365;
-        for(var i=0; i<daysInYear; i++){
-          var dt = new Date(d);
-          dt.setDate(d.getDate()+i);
-          dates.push(dt);
-        }
-      } else if(preset === "lastYear"){
-        var year = now.getFullYear() - 1;
-        var d = new Date(year, 0, 1);
-        var daysInYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0) ? 366 : 365;
-        for(var i=0; i<daysInYear; i++){
-          var dt = new Date(d);
-          dt.setDate(d.getDate()+i);
-          dates.push(dt);
+  var barChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: [],
+      datasets: [
+        { label: 'Completed', data: [], backgroundColor: '#4ade80' },
+        { label: 'Incomplete', data: [], backgroundColor: '#ef4444' }
+      ]
+    },
+    options:{
+      responsive: true,
+      maintainAspectRatio: false,
+      scales:{
+        y:{
+          beginAtZero:true,
+          ticks:{ precision:0 }
         }
       }
-      return dates;
     }
-    function toIsoDate(dateObj){
-      var y = dateObj.getFullYear();
-      var m = ("0"+(dateObj.getMonth()+1)).slice(-2);
-      var d = ("0"+dateObj.getDate()).slice(-2);
-      return y + "-" + m + "-" + d;
-    }
-    function filterDatesByPreset(preset){
-      var allDates = Object.keys(progress).sort();
-      var presetDateObjs = getPresetDates(preset).map(toIsoDate);
-      return allDates.filter(function(dateKey){
-        return presetDateObjs.indexOf(dateKey) !== -1;
-      });
-    }
+  });
 
-    document.querySelectorAll('.preset-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        activePreset = btn.getAttribute('data-preset');
-        updateCharts();
-      });
-    });
-
-    /* ============================
-       CHART SETUP
-    ============================ */
-    var ctxBar = document.getElementById('barChart').getContext('2d');
-    var ctxLine = document.getElementById('lineChart').getContext('2d');
-
-    var barChart = new Chart(ctxBar, {
-      type: 'bar',
-      data: {
-        labels: [],
-        datasets: [
-          { label: 'Completed', data: [], backgroundColor: '#4ade80' },
-          { label: 'Incomplete', data: [], backgroundColor: '#ef4444' }
-        ]
-      },
-      options:{
-        responsive: true,
-        maintainAspectRatio: false, /* important to let it scale in the .relative container */
-        scales:{
-          y:{
-            beginAtZero:true,
-            ticks:{ precision:0 }
-          }
+  var lineChart = new Chart(ctxLine, {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets:[
+        {
+          label: 'Exercises Done',
+          data: [],
+          borderColor: '#3b82f6',
+          backgroundColor: '#3b82f6',
+          fill: false
+        }
+      ]
+    },
+    options:{
+      responsive: true,
+      maintainAspectRatio: false,
+      scales:{
+        y:{
+          beginAtZero:true
         }
       }
+    }
+  });
+
+  /*
+    Update Charts
+  */
+  function updateCharts(){
+    var allDateKeys = Object.keys(progress).sort();
+    var dateKeysToUse = activePreset ? filterDatesByPreset(activePreset) : allDateKeys;
+
+    var totalExercisesAllTime = document.querySelectorAll('.done-checkbox').length;
+    var completedData = dateKeysToUse.map(function(dKey){
+      return progress[dKey] ? progress[dKey].length : 0;
+    });
+    var incompleteData = completedData.map(function(val){
+      return totalExercisesAllTime - val;
     });
 
-    var lineChart = new Chart(ctxLine, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets:[
-          {
-            label: 'Exercises Done',
-            data: [],
-            borderColor: '#3b82f6',
-            backgroundColor: '#3b82f6',
-            fill: false
-          }
-        ]
-      },
-      options:{
-        responsive: true,
-        maintainAspectRatio: false, /* also let it scale */
-        scales:{
-          y:{
-            beginAtZero:true
-          }
-        }
-      }
-    });
+    // Bar Chart
+    barChart.data.labels = dateKeysToUse;
+    barChart.data.datasets[0].data = completedData;
+    barChart.data.datasets[1].data = incompleteData;
+    barChart.update();
 
-    /* ============================
-       UPDATE CHARTS
-    ============================ */
-    function updateCharts(){
-      // Filter dates if preset is active
-      var allDateKeys = Object.keys(progress).sort();
-      var dateKeysToUse = activePreset ? filterDatesByPreset(activePreset) : allDateKeys;
-
-      // Bar chart
-      var totalExercisesAllTime = document.querySelectorAll('.done-checkbox').length;
-      var completedData = dateKeysToUse.map(function(dKey){
+    // Line Chart
+    if(dateKeysToUse.length === 1){
+      var date = dateKeysToUse[0];
+      var c = progress[date] ? progress[date].length : 0;
+      lineChart.data.labels = [date, ' '];
+      lineChart.data.datasets[0].data = [c, c];
+    }
+    else {
+      lineChart.data.labels = dateKeysToUse;
+      lineChart.data.datasets[0].data = dateKeysToUse.map(function(dKey){
         return progress[dKey] ? progress[dKey].length : 0;
       });
-      var incompleteData = completedData.map(function(val){
-        return totalExercisesAllTime - val;
-      });
-
-      barChart.data.labels = dateKeysToUse;
-      barChart.data.datasets[0].data = completedData;
-      barChart.data.datasets[1].data = incompleteData;
-      barChart.update();
-
-      // For single day => horizontal line
-      if(dateKeysToUse.length === 1){
-        var date = dateKeysToUse[0];
-        var c = progress[date] ? progress[date].length : 0;
-        lineChart.data.labels = [date, ' '];
-        lineChart.data.datasets[0].data = [c, c];
-      }
-      else {
-        lineChart.data.labels = dateKeysToUse;
-        lineChart.data.datasets[0].data = dateKeysToUse.map(function(dKey){
-          return progress[dKey] ? progress[dKey].length : 0;
-        });
-      }
-
-      lineChart.update();
     }
+    lineChart.update();
+  }
 
-    // Feather icons
-    feather.replace();
-  </script>
-  <!-- Google tag (gtag.js) -->
+  // Feather icons
+  feather.replace();
+</script>
+
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9FX9VB830N"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-9FX9VB830N');
 </script>
 </body>
